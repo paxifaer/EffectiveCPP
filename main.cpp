@@ -75,10 +75,12 @@ void test_decltype()
      else if(std::is_same_v<decltype(f5<int>(4)),int>)
      {
         std::cout<<"is int"<<std::endl;
-     }     else if(std::is_same_v<decltype(f5<int>(4)),int&&>)
-     {
-        std::cout<<"is int&& x is"<<f5<int>(4)<<std::endl;//引发悬垂引用
      }
+     std::cout<<"type is "<<typeid(f5<int>(4)).name()<<std::endl;
+    //  }     else if(std::is_same_v<decltype(f5<int>(4)),int&&>)
+    //  {
+    //     std::cout<<"is int&& x is"<<f5<int>(4)<<std::endl;//引发悬垂引用
+    //  }
 }
 
 void process(int& x)  { std::cout << "左值: " << x << std::endl; }
