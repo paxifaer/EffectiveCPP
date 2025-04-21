@@ -1,7 +1,8 @@
 #include <iostream>
 #include <type_traits>
 #include <utility>
-
+#include <memory>
+#include<stdio.h>
 template<typename T>
 void f(T* param) {
     if (std::is_same_v<T, int>) {
@@ -102,6 +103,55 @@ void test_forward()
     relay(std::move(x)); // 输出：右值: 10
 
 }
+
+
+void func_auto()
+{
+   auto para = [](auto& point1,auto& point2)
+   {
+    return *point1 > * point2 ? * point1 : *point2;
+   };
+
+
+   auto derefLess =                                //C++14版本
+    [](const auto& p1,                          //被任何像指针一样的东西
+       const auto& p2)                          //指向的值的比较函数
+    { 
+        *p1=7;
+        return *p1 < *p2; };
+   
+   auto test_fun2 = [](const int *ptr1,int* const ptr2)
+   {
+        ptr1=nullptr;
+        // *ptr1=2;
+        int *ptr11 = new int (3);
+   
+        const int *ptr3 = ptr11;
+        ptr3 = nullptr;
+        // *ptr3 = 4; 
+   };
+   auto test_fun3 = [](const int &ptr1,int& const ptr2)
+   {
+        // ptr1=nullptr;
+        // *ptr1=2;
+        int *ptr11 = new int (3);
+   
+        const int *ptr3 = ptr11;
+        ptr3 = nullptr;
+        // *ptr3 = 4; 
+   };
+   auto test_func4 = [](auto&& para1,auto&& para2)
+   {
+
+   };
+   int x1 = 3;
+   int x2 = 4;
+   auto x3 = std::make_shared<int>(3);
+   auto x4 = std::make_shared<int>(4);
+   std::cout<<"para is "<<para(x3,x4)<<std::endl;
+   std::cout<<"para is "<<derefLess(&x1,&x2)<<std::endl;
+   std::cout<<"para is "<<derefLess(x3,x4)<<std::endl;
+}
 int main() {
     int x = 27;
     const int *px = &x;
@@ -117,5 +167,6 @@ int main() {
     f3(pa);
     test_decltype();
     test_forward();
+    func_auto();
     return 0;
 }
