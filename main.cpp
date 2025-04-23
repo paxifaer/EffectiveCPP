@@ -152,6 +152,36 @@ void func_auto()
    std::cout<<"para is "<<derefLess(&x1,&x2)<<std::endl;
    std::cout<<"para is "<<derefLess(x3,x4)<<std::endl;
 }
+
+class TestChainRef{
+public:
+  int v1;
+  int v2;
+  int v3; 
+  TestChainRef setvalue1(int a)
+  {
+     this->v1 = a;
+     return *this;
+  }
+  TestChainRef setvalue2(int b)
+  {
+     this->v2 = b;
+     return *this;
+  }
+  TestChainRef setvalue3(int c)
+  {
+     this->v3 = c;
+     return *this;
+  }
+
+};
+
+void test_chain_ref()
+{
+    TestChainRef* chain = new TestChainRef;
+    chain->setvalue1(1).setvalue2(2).setvalue3(3);
+}
+
 int main() {
     int x = 27;
     const int *px = &x;
