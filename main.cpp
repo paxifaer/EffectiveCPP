@@ -43,8 +43,7 @@ auto&& f4(T &&para)
 {
      
     int x=3;
-    return (x);
-
+    return x;
 }
 
 template<class T>
@@ -56,32 +55,58 @@ decltype(auto) f5(T &&para)
 
 }
 
+template<class T>
+decltype(auto) f6()
+{
+    int x=3;
+    return x;
+}
+
+template<class T>
+decltype(auto) f6_2()//decltype((value)) (value)被识别为一个表达式
+{
+    int x=3;
+    return (x);
+}
+
 void test_decltype()
 {
      if(std::is_same_v<decltype(f4(4)),int&>)
      {
-        std::cout<<"is int&"<<std::endl;
+        std::cout<<"f4 is int&"<<std::endl;
      }
      else if(std::is_same_v<decltype(f4(4)),int>)
      {
-        std::cout<<"is int"<<std::endl;
+        std::cout<<"f4 is int"<<std::endl;
      }
 
 
 
      if(std::is_same_v<decltype(f5<int>(4)),int&>)
      {
-        std::cout<<"is int&"<<std::endl;
+        std::cout<<"f5 is int&"<<std::endl;
      }
      else if(std::is_same_v<decltype(f5<int>(4)),int>)
      {
-        std::cout<<"is int"<<std::endl;
+        std::cout<<"f5 is int"<<std::endl;
+     }    else if(std::is_same_v<decltype(f5<int>(4)),int&&>)
+     {
+        std::cout<<"f5 is int&&"<<std::endl;
      }
      std::cout<<"type is "<<typeid(f5<int>(4)).name()<<std::endl;
     //  }     else if(std::is_same_v<decltype(f5<int>(4)),int&&>)
     //  {
     //     std::cout<<"is int&& x is"<<f5<int>(4)<<std::endl;//引发悬垂引用
     //  }
+
+    if(std::is_same_v<decltype(f6<int>()),int>)
+    {
+        std::cout<<"f6 return type is int "<<std::endl;
+    }
+    if(std::is_same_v<decltype(f6_2<int>()),int&>)
+    {
+        std::cout<<"f6 return type is int& "<<std::endl;
+    }
 }
 
 void process(int& x)  { std::cout << "左值: " << x << std::endl; }
@@ -130,16 +155,16 @@ void func_auto()
         ptr3 = nullptr;
         // *ptr3 = 4; 
    };
-   auto test_fun3 = [](const int &ptr1,int& const ptr2)
-   {
-        // ptr1=nullptr;
-        // *ptr1=2;
-        int *ptr11 = new int (3);
+//    auto test_fun3 = [](const int &ptr1,int& const ptr2)
+//    {
+//         // ptr1=nullptr;
+//         // *ptr1=2;
+//         int *ptr11 = new int (3);
    
-        const int *ptr3 = ptr11;
-        ptr3 = nullptr;
-        // *ptr3 = 4; 
-   };
+//         const int *ptr3 = ptr11;
+//         ptr3 = nullptr;
+//         // *ptr3 = 4; 
+//    };
    auto test_func4 = [](auto&& para1,auto&& para2)
    {
 
