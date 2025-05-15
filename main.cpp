@@ -207,6 +207,109 @@ void test_chain_ref()
     chain->setvalue1(1).setvalue2(2).setvalue3(3);
 }
 
+
+
+
+
+
+
+
+
+// #############################  item 7 #####################################
+//本章节主要讲解 花括号构造时的优先级{}，类里面没有std::initializer_list<double> ，使用{}构造会根据类型进入不同的构造函数中，但是当类里面存在Wiget(std::initializer_list<double> list)时
+// 无论怎么构造都会进去Wiget(std::initializer_list<double> list)里面
+class Wiget{
+    public:
+      Wiget(int a,double d){
+         std::cout<<"use para func "<<std::endl;
+      }
+    //   Wiget(int a,double d){}
+      Wiget(std::initializer_list<double> list){
+        std::cout<<"use initializer_list "<<std::endl;
+      }
+      operator double(){
+        std::cout<<"operator double"<<std::endl;
+      }
+      operator float(){
+        std::cout<<"operator float"<<std::endl;
+      }
+     operator int(){
+        std::cout<<"operator int"<<std::endl;
+      }
+    //   Wiget(Wiget&& w){
+    //        std::cout<<"use Wiget&&"<<std::endl;
+    //   }
+};
+
+
+
+template<typename T,            //要创建的对象类型
+         typename... Ts>        //要使用的实参的类型
+void 
+// decltype(auto) 
+doSomeWork(T a, Ts&&... params)
+{
+    // T localObject(std::forward<Ts>(params)...);
+    // for(auto& para1:localObject)
+    // {
+    //     std::cout<<"para1 is "<<para1<<" ";
+    // }
+    std::cout<<std::endl;
+    T localObject2{std::forward<Ts>(params)...};
+    for(auto& para2:localObject2)
+    {
+        std::cout<<"para2 is "<<para2<<" ";
+    }
+    std::cout<<std::endl;
+
+
+    T localObject3{(params)...};
+    for(auto& para3:localObject3)
+    {
+        std::cout<<"para3 is "<<para3<<" ";
+    }
+    std::cout<<std::endl;
+
+    T localObject4((params)...);
+    for(auto& para4:localObject4)
+    {
+        std::cout<<"para4 is "<<para4<<" ";
+    }
+    std::cout<<std::endl;
+    // std::vector<T> vec(std::forward<Ts>(params)...);
+    // std::vector<T> vec2{std::forward<Ts>(params)...};
+} 
+
+// template<class... args>
+
+
+
+void Item7Func()
+{
+    Wiget w1(1,2);
+    Wiget w2{1,2};
+    Wiget w3(w1);
+    Wiget w4{w2};
+    Wiget w5(std::move(w2));
+    Wiget w6{std::move(w2)};
+}
+#include <vector>
+void Item7Func2()
+{
+    // doSomeWork<std::vector<int>>(10, 20);
+    // doSomeWork<std::vector<int>>(10, 20);
+    // doSomeWork<std::vector<int>,int,double>(10, 20);
+    std::vector<int> a{1,2,3};
+    doSomeWork(a,10, 20);//另外一点值得注意，template关于<>括号注明函数类型的使用很灵过，当里面参数有实际注入要么<>内部按照顺序注明，或者在()里面放入参数可以自动推导 
+    //一般不建议<>声明一些，再在()里面存放另外一些，很容易让人误解。
+    // doSomeWork<std::vector<int>>({10,20});
+    //  doSomeWork<std::vector<int>>(10, 20);
+}
+
+// #############################  item 7 #####################################
+
+
+
 int main() {
     int x = 27;
     const int *px = &x;
@@ -219,9 +322,11 @@ int main() {
     
     const char* const pa = "aaa";
 
-    f3(pa);
-    test_decltype();
-    test_forward();
-    func_auto();
+    // f3(pa);
+    // test_decltype();
+    // test_forward();
+    // func_auto();
+    // Item7Func();
+    Item7Func2();
     return 0;
 }
