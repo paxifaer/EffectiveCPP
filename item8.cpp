@@ -77,4 +77,4 @@ int main()
 
     TestImplicitConvertion();
     return 0;
-}
+}//总结： 0或者NULL 在模板函数作为参数传递时，不会被隐式转换成指针。
