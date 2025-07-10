@@ -30,10 +30,23 @@ template<class T>
   constexpr decltype(auto)infer(T value)
   {
      return static_cast<std::underlying_type_t<T>>(value);
-  };
+  };//编译期的类型转换器
 
 using ShapeCan = std::tuple<int32_t, int32_t, int32_t>;
 
+template<class T>
+  constexpr decltype(auto)infer2(T&& value)
+  {
+    return static_cast<std::underlying_type_t<T>>(value);
+  };
+
+
+
+template<class T>
+  constexpr decltype(auto)infer3(T&& value)
+{
+  return static_cast<std::underlying_type_t<T>>(value);
+}
 int main()
 {
   

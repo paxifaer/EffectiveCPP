@@ -311,23 +311,23 @@ void Item7Func2()
 
 
 int main() {
-    int x = 27;
-    const int *px = &x;
+    // int x = 27;
+    // const int *px = &x;
 
-    // f(&x); // 输出：T is int, param is int*
-    // f(px); // 输出：T is const int, param is const int*
-    // int x=3;
-    // f2(x);
-    // f2(std::move(x));
+    // // f(&x); // 输出：T is int, param is int*
+    // // f(px); // 输出：T is const int, param is const int*
+    // // int x=3;
+    // // f2(x);
+    // // f2(std::move(x));
     
-    const char* const pa = "aaa";
+    // const char* const pa = "aaa";
 
-    // f3(pa);
-    // test_decltype();
-    // test_forward();
-    // func_auto();
-    // Item7Func();
-    Item7Func2();
+    // // f3(pa);
+    // // test_decltype();
+    // // test_forward();
+    // // func_auto();
+    // // Item7Func();
+    // Item7Func2();
 
     return 0;
 }

@@ -1,6 +1,7 @@
 #include<iostream>
 #include<type_traits>
 #include<stack>
+#include<list>
 
 template<class T> 
   using remove_reference_t = typename std::remove_reference<T>::type;
@@ -31,6 +32,14 @@ template<class T>
 };
 
 template<class T>
+  using stack2_t = typename stack2<T>::type;
+
+template<class T>
+  struct stack5{
+  typedef std::stack<T> type;
+};
+
+template<class T>
   void func2(T para)
 {
     stack1<T>st1;
@@ -43,6 +52,16 @@ template<class T>
     typename stack2<T>::type st3;
     st3.push(para);
 }
+
+
+template<class T>
+  struct stack6{
+    typedef std::list<std::stack<T>> type;
+};
+
+template<class T>
+  // using stack6_t = stack6<T>::type;
+  using stack6_t = std::list<std::stack<T>>;
 
 int main()
 {
