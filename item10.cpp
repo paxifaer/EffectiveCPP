@@ -1,6 +1,7 @@
 #include <iostream>
 #include <tuple>
-
+#include <vector>
+#include <algorithm>
 enum Color{
   red,
   blue,
@@ -49,7 +50,13 @@ template<class T>
 }
 int main()
 {
-  
+  std::vector<int> a{1, 2, 3};  // 原始容器
+    
+    // 使用不同的变量名来存储查找结果
+  auto it = std::find(a.cbegin(), a.cend(), 1);
+
+   
+
   ShapeCan can1{1,2,3};
   
   std::cout<<std::get<infer(Shape2::circle2)>(can1)<<std::endl;

@@ -12,11 +12,9 @@ void f(bool){
     std::cout<<"this is bool"<<std::endl;
 }
 
-
 void f(long){
     std::cout<<"this is long"<<std::endl;
 }
-
 
 class Wiget{
 
@@ -78,3 +76,8 @@ int main()
     TestImplicitConvertion();
     return 0;
 }//总结： 0或者NULL 在模板函数作为参数传递时，不会被隐式转换成指针。
+/*
+还有一点 0 null作为返回值不如nullptr更为明显。
+重载的时候0或者NULL作为参数传递大概率不会作为空指针之类的传入
+总之nullptr的引入是为了哦更好的区分开空指针
+*/
