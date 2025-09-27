@@ -43,7 +43,10 @@ Wiget::~Wiget()//需要编译器知道
 }
 // shared_ptr 的删除逻辑是 类型无关（运行时） 的，
 // unique_ptr 的删除逻辑是 类型相关（编译期） 的。
-
+/*
+如果impl是shared_ptr 移动构造函数=default可以放在.h文件
+unique_ptr不行
+*/
 int main()
 {
     return 0;
