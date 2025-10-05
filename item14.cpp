@@ -213,3 +213,10 @@
 // .at() → 检查，越界抛 std::out_of_range。
 
 // 要不要我给你画一个 “数组/容器越界时行为对比表”？这样能一眼看清楚：原生数组 vs STL [] vs STL
+
+#include <iostream>
+int main()
+{
+
+    return 0;
+}
