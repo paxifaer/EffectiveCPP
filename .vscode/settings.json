@@ -46,6 +46,18 @@
         "streambuf": "cpp",
         "optional": "cpp",
         "fstream": "cpp",
-        "sstream": "cpp"
+        "sstream": "cpp",
+        "chrono": "cpp",
+        "condition_variable": "cpp",
+        "cstring": "cpp",
+        "ctime": "cpp",
+        "list": "cpp",
+        "ratio": "cpp",
+        "future": "cpp",
+        "mutex": "cpp",
+        "ranges": "cpp",
+        "semaphore": "cpp",
+        "stop_token": "cpp",
+        "thread": "cpp"
     }
 }

@@ -26,7 +26,6 @@ constexpr int func2() {
     return func_(5);  // 编译期可计算，因为 func(5) 在编译期可以求得
 }
 
-
 int main()
 {
 constexpr int a = 3;
