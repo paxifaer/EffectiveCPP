@@ -52,8 +52,48 @@ void TestFunc()
     t.join();  // 可去掉，RAII 析构会自动 join
 }
 
+class ThreadRAII2{
+public:
+  enum class ThreadType{
+    Join,Detach
+  };
+  ThreadRAII2(std::thread&& t, ThreadType thread_type): 
+    t_(std::move(t)), thread_type_(thread_type)
+  {
+  }
+
+  ~ThreadRAII2()
+  {
+    if(t_.joinable())
+    {
+        if(thread_type_ == ThreadType::Join)
+        {
+            t_.join();
+            std::cout<<" end success "<<std::endl;
+        }
+        else 
+        {
+            t_.detach();
+        }
+    }
+  }
+private:
+  std::thread t_;
+  ThreadType thread_type_;
+};
+
+void TestFunc2()
+{
+    ThreadRAII2 test(std::thread(
+        [](){
+            std::cout<<"aaa"<<std::endl;
+        }
+    ), ThreadRAII2::ThreadType::Join);
+}
+
+
 int main()
 {
-    TestFunc();
+    TestFunc2();
     return 0;
 }

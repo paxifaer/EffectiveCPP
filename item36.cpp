@@ -32,9 +32,45 @@ void test_func2(int a)
     std::cout<<" test func2 "<< a <<std::endl;  
 }
 
+decltype(auto) test_defer()
+{
+    auto test = [](std::string message){
+       
+    //    while(true)
+    //    {
+            std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+            std::cout<<"message is " << message <<std::endl;
+    //    }
+
+    };
+    
+    return std::async(std::launch::deferred, test, "msg");
+    
+}
+
+decltype(auto) test_async()
+{
+    auto test = [](std::string message){
+       
+    //    while(true)
+    //    {
+            std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+            std::cout<<"message is " << message<< std::endl;
+    //    }
+
+    };
+    
+    return std::async(std::launch::async, test, "msg");
+    
+}
+
 int main()
 {
 
+   auto defer_res = test_defer();
+   defer_res.get();
+   auto async_res = test_async();
+    async_res.get();
 
     auto fun1 = ReallyAsync(test_func2, 2);
     auto fun2 = ReallyAsync(test_func, 3);
